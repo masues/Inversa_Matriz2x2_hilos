@@ -5,16 +5,19 @@
  */
 package examenhilos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Mario Alberto Suarez Espinoza
  */
 public class HiloProductoEscalar extends Thread{
-    int [][]matriz;
-    int escalar;
+    float [][]matriz;
+    float escalar;
 
-    public HiloProductoEscalar(int[][] matriz, int escalar) {
-        this.matriz = new int[2][2];
+    public HiloProductoEscalar(float[][] matriz, float escalar) {
+        this.matriz = new float[2][2];
         for(int i=0;i<this.matriz.length;i++){
             for(int j=0;j<this.matriz[i].length;j++){
                 this.matriz[i][j]=matriz[i][j];
@@ -24,10 +27,17 @@ public class HiloProductoEscalar extends Thread{
     }
     @Override
     public void run(){
+        System.out.println(this.getName()
+                +": Generando hilos para el cálculo del producto escalar...");
         HiloProductoColumna []columnas = new HiloProductoColumna[matriz.length];
         for(int i=0;i<columnas.length;i++){
             columnas[i]=new HiloProductoColumna(matriz,escalar,i);
             columnas[i].start();
+            try {
+                columnas[i].join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(HiloProductoEscalar.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

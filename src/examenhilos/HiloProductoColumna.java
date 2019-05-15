@@ -10,11 +10,11 @@ package examenhilos;
  * @author Mario Alberto Suarez Espinoza
  */
 public class HiloProductoColumna extends Thread{
-    int[][] matriz;
-    int escalar;
+    float[][] matriz;
+    float escalar;
     int columna;
 
-    public HiloProductoColumna(int[][] matriz, int escalar, int columna) {
+    public HiloProductoColumna(float[][] matriz, float escalar, int columna) {
         this.matriz = matriz;
         this.escalar = escalar;
         this.columna = columna;
