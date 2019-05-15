@@ -2,7 +2,7 @@ package examenhilos;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+ 
 public class ExamenHilos {
     public static void main(String[] args) {
         System.out.println("Creando matriz...");
@@ -11,7 +11,7 @@ public class ExamenHilos {
         float [][]A = new float[filas][columnas];
         float [][]Tran = new float[filas][columnas];
         float [][]Adj = new float[filas][columnas];
-        float [][]AproductoEscalar;
+        float [][]Ainversa;
         float determinante = 1;
         HiloGenerador []Filas = new HiloGenerador[filas]; //arreglo de hilos para cada fila
 
@@ -58,7 +58,7 @@ public class ExamenHilos {
         System.out.println("Su traspuesta es:");
         imprimeMatriz(Tran);
 
-        System.out.println("Calculando adjunta de la transpuesta...");
+        System.out.println("Calculando la adjunta de la transpuesta...");
 
         HiloGenAdjunta Had = new HiloGenAdjunta(Tran,Adj);
         Had.start();
@@ -70,19 +70,17 @@ public class ExamenHilos {
         System.out.println("Su adjunta es:");
         imprimeMatriz(Adj);
         
-        System.out.println("Calculando el producto del determinante con la matriz...");
-        HiloProductoEscalar productoEscalar = new HiloProductoEscalar(A,determinante);
+        System.out.println("Calculando el producto de 1/determinante con la matriz adjunta...");
+        HiloProductoEscalar productoEscalar = new HiloProductoEscalar(Adj,1/determinante);
         productoEscalar.start();
         try {
             productoEscalar.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(ExamenHilos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        AproductoEscalar=productoEscalar.matriz;
-        System.out.println("La matriz por el producto escalar es:");
-
-        
-        imprimeMatriz(AproductoEscalar);
+        Ainversa=productoEscalar.matriz;
+        System.out.println("La matriz inversa es:");
+        imprimeMatriz(Ainversa);
     }
 
     private static void elsif(boolean b) {
