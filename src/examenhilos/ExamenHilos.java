@@ -58,7 +58,7 @@ public class ExamenHilos {
         System.out.println("Su traspuesta es:");
         imprimeMatriz(Tran);
 
-        System.out.println("Calculando adjunta de la transpuesta...");
+        System.out.println("Calculando la adjunta...");
 
         HiloGenAdjunta Had = new HiloGenAdjunta(A,Adj);
         Had.start();
