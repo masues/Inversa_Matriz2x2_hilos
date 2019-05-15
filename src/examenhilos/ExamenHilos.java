@@ -3,8 +3,8 @@ package examenhilos;
 public class ExamenHilos {
     public static void main(String[] args) {
         System.out.println("Creando matriz...");
-        int filas = 3;
-        int columnas = 3;
+        int filas = 2;
+        int columnas = 2;
         float [][]A = new float[filas][columnas];
         int determinante = 1;
         HiloGenerador []Filas = new HiloGenerador[filas]; //arreglo de hilos para cada fila
@@ -27,6 +27,7 @@ public class ExamenHilos {
         HiloDeterminante Det = new HiloDeterminante(A,determinante);
         Det.start();
         try{
+            determinante = (int)(Det.Det);
             Det.join();
         }catch(InterruptedException e){
             e.printStackTrace();
