@@ -1,5 +1,6 @@
 package examenhilos;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +13,7 @@ public class ExamenHilos {
         float [][]Tran = new float[filas][columnas];
         float [][]Adj = new float[filas][columnas];
         float [][]Ainversa;
+        float [][]Acomprobacion = new float[filas][columnas];
         float determinante = 1;
         HiloGenerador []Filas = new HiloGenerador[filas]; //arreglo de hilos para cada fila
 
@@ -81,11 +83,30 @@ public class ExamenHilos {
         Ainversa=productoEscalar.matriz;
         System.out.println("La matriz inversa es:");
         imprimeMatriz(Ainversa);
+        
+        System.out.println("Generando hilos para la comprobacion");
+        ArrayList<HiloComprobacion> producto = new ArrayList<HiloComprobacion>();
+        
+        for(int i=0; i<Acomprobacion.length; i++){
+            for(int j=0; j<Acomprobacion.length; j++){
+                producto.add(new HiloComprobacion(A, Ainversa, i, j));
+            }
+        }
+        producto.forEach((n) ->
+            {
+                n.start();
+            try {
+                n.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ExamenHilos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                Acomprobacion[n.r][n.c] = n.a;
+            }
+        );
+        System.out.println("Se obtuvo la matriz identidad");
+        imprimeMatriz(Acomprobacion);
     }
 
-    private static void elsif(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     public static void imprimeMatriz(float [][]A){
         for(int i=0;i<A.length;i++){
             for(int j=0; j<A[i].length;j++){
