@@ -11,7 +11,7 @@ public class HiloDeterminante extends Thread{ //Hereda de Thread
 
         System.out.println(this.getName()+": Hilo generado");
     }
-    public HiloDeterminante(float [][]mat,int det){ //Constructor_2
+    public HiloDeterminante(float [][]mat,float det){ //Constructor_2
         this.Mat = mat;
         this.Det = det;
     }
