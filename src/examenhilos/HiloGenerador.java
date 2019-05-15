@@ -12,7 +12,7 @@ public class HiloGenerador extends Thread{ //Hereda de Thread
     @Override
     public void run(){ //siempre definir como void y no recibe parámetros
         for (int i=0; i<Mat.length; i++){
-            Mat[Fila][i] = (int) (Math.random() * 3);
+            Mat[Fila][i] = (int) (Math.random() * 15);
             System.out.println(this.getName()+": "+ "A["+Fila+"]"+"["+i+"] = "+Mat[Fila][i]);
         }
     }
