@@ -14,26 +14,30 @@ public class HiloAdjunta extends Thread{ //Hereda de Thread
 
         System.out.println(this.getName()+": Hilo generado");
     }
-    public HiloAdjunta(float [][]mat,float [][]ad){ //Constructor_2
+    public HiloAdjunta(float [][]mat,float [][]ad,int fila,int col){ //Constructor_2
         this.Mat = mat;
         this.Adj = ad;
+        this.fila = fila;
+        this.col = col;
     }
     @Override
     public void run(){ //siempre definir como void y no recibe parámetros
-        for (int fila = 0; fila < Mat.length ; fila++) {
-           for (int col = 0; col < Mat.length; col++) {
                if(col == fila && col== 0){
                 this.Adj[fila][col] = this.Mat[fila+1][col+1];
                }else if(col == fila && col== 1){
                 this.Adj[fila][col] = this.Mat[fila-1][col-1];
                 }else{
-                   this.Adj[fila][col] = this.Mat[fila][col]*-1;
+                   if(this.Mat[fila][col]==0){
+                    this.Adj[fila][col] = this.Mat[fila][col];
+                   }else{
+                    this.Adj[fila][col] = this.Mat[fila][col]*-1;
+                   }
+                   
                }
-               
                System.out.println(this.getName()+": "+ "A["+fila+"]"+"["+col+"] = "+Adj[fila][col]);
-        }
-    }
     }
     float [][]Mat;
     float [][]Adj;
+    int col;
+    int fila;
 }
