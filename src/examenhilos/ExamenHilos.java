@@ -1,11 +1,15 @@
 package examenhilos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class ExamenHilos {
     public static void main(String[] args) {
         System.out.println("Creando matriz...");
         int filas = 2;
         int columnas = 2;
         float [][]A = new float[filas][columnas];
+        float [][]Atraspuesta = new float[filas][columnas];
         float determinante = 1;
         HiloGenerador []Filas = new HiloGenerador[filas]; //arreglo de hilos para cada fila
 
@@ -22,9 +26,8 @@ public class ExamenHilos {
             }
         }
         
-        imprimeMatriz(A);
-        
         System.out.println("¡Matriz lista!");
+        imprimeMatriz(A);
 
         HiloDeterminante Det = new HiloDeterminante(A,determinante);
         Det.start();
@@ -35,7 +38,16 @@ public class ExamenHilos {
             e.printStackTrace();
         }
         determinante = (float)(Det.Det);
-        System.out.println(determinante);
+        
+        HiloTranspuesta transpuesta = new HiloTranspuesta(A,Atraspuesta);
+        transpuesta.start();
+        try {
+            transpuesta.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ExamenHilos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        imprimeMatriz(Atraspuesta);
     }
 
     private static void elsif(boolean b) {
