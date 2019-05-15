@@ -21,7 +21,9 @@ public class ExamenHilos {
                 e.printStackTrace();
             }
         }
-
+        
+        imprimeMatriz(A);
+        
         System.out.println("¡Matriz lista!");
 
         HiloDeterminante Det = new HiloDeterminante(A,determinante);
@@ -32,10 +34,19 @@ public class ExamenHilos {
         }catch(InterruptedException e){
             e.printStackTrace();
         }
+        imprimeMatriz(A);
         
     }
 
     private static void elsif(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public static void imprimeMatriz(float [][]A){
+        for(int i=0;i<A.length;i++){
+            for(int j=0; j<A[i].length;j++){
+                System.out.print(A[i][j]+"\t");
+            }
+            System.out.println("");
+        }
     }
 }
