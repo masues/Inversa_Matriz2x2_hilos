@@ -26,13 +26,9 @@ public class HiloAdjunta extends Thread{ //Hereda de Thread
                 this.Adj[fila][col] = this.Mat[fila+1][col+1];
                }else if(col == fila && col== 1){
                 this.Adj[fila][col] = this.Mat[fila-1][col-1];
-                }
-               
-               if(col != fila && fila== 0){
-                this.Adj[fila][col] = this.Mat[fila+1][col-1]*-1;
-               }else if(col != fila && fila== 1 && col ==0){
-                    this.Adj[fila][col] = this.Mat[fila-1][col+1]*-1;
-                }
+                }else{
+                   this.Adj[fila][col] = this.Mat[fila][col]*-1;
+               }
                
                System.out.println(this.getName()+": "+ "A["+fila+"]"+"["+col+"] = "+Adj[fila][col]);
         }
