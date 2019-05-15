@@ -14,19 +14,18 @@ public class HiloTranspuesta extends Thread{ //Hereda de Thread
 
         System.out.println(this.getName()+": Hilo generado");
     }
-    public HiloTranspuesta(float [][]mat,float [][]tr){ //Constructor_2
+    public HiloTranspuesta(float [][]mat,float [][]tr,int fila, int col){ //Constructor_2
         this.Mat = mat;
         this.Tran = tr;
+        this.fila = fila;
+        this.col = col;
     }
     @Override
     public void run(){ //siempre definir como void y no recibe parámetros
-        for (int fila = 0; fila < Mat.length ; fila++) {
-           for (int col = 0; col < Mat.length; col++) {
             this.Tran[fila][col] = this.Mat[col][fila];
             System.out.println(this.getName()+": "+ "A["+fila+"]"+"["+col+"] = "+Tran[fila][col]);
-        }
-    }
     }
     float [][]Mat;
     float [][]Tran;
+    int fila,col;
 }
