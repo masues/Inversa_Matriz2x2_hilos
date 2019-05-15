@@ -12,19 +12,19 @@ public class HiloDeterminante extends Thread{ //Hereda de Thread
     @Override
     public void run(){ //siempre definir como void y no recibe parámetros
         
-        for(int j=0; j<Mat.length; j++){        //Recorrido de columnas
+        for(int j=0; j<this.Mat.length; j++){        //Recorrido de columnas
             for(int i=j+1; i<Mat.length; i++){    //Recorrido de renglones
-                if(Mat[j][j] == 0){
-                    j = Mat.length;
+                if(this.Mat[j][j] == 0){
+                    j = this.Mat.length;
                     break;
                 }
                 //Calculo del factor para volver 0 un elemento
-                float factor = (Mat[i][j]/Mat[j][j])*-1;
+                float factor = (this.Mat[i][j]/this.Mat[j][j])*-1;
                 System.out.println("Factor "+factor);
                 
                 for(int c = j; c<Mat.length; c++){    //Recorrido interno del renglon
-                    Mat[i][c] = (Mat[j][c]*factor) + Mat[i][c];
-                    System.out.println("A["+i+"]"+"["+c+"] = "+Mat[i][c]);
+                    this.Mat[i][c] = (Mat[j][c]*factor) + this.Mat[i][c];
+                    System.out.println("A["+i+"]"+"["+c+"] = "+this.Mat[i][c]);
                 }
             }
         }
