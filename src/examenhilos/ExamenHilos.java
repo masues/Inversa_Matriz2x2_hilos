@@ -45,12 +45,15 @@ public class ExamenHilos {
         
         System.out.println("Calculando transpuesta...");
 
-        HiloGenTranspuesta Htr = new HiloGenTranspuesta(A,Tran);
-        Htr.start();
-        try{
-            Htr.join();
-        }catch(InterruptedException e){
-            e.printStackTrace();
+        HiloTranspuesta []matHiloTra = new HiloTranspuesta[A.length];
+        for (int fila = 0; fila < A.length; fila++) {
+            matHiloTra[fila] = new HiloTranspuesta(A,Tran,fila);
+            matHiloTra[fila].start();
+            try{
+                matHiloTra[fila].join();
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
         }
         System.out.println("Su traspuesta es:");
         imprimeMatriz(Tran);
