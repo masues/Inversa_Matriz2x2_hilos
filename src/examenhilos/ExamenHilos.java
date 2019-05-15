@@ -9,7 +9,9 @@ public class ExamenHilos {
         int filas = 2;
         int columnas = 2;
         float [][]A = new float[filas][columnas];
-        float [][]Atraspuesta = new float[filas][columnas];
+        float [][]Tran = new float[filas][columnas];
+        float [][]Adj = new float[filas][columnas];
+        float [][]AproductoEscalar;
         float determinante = 1;
         HiloGenerador []Filas = new HiloGenerador[filas]; //arreglo de hilos para cada fila
 
@@ -27,8 +29,10 @@ public class ExamenHilos {
         }
         
         System.out.println("¡Matriz lista!");
+        System.out.println("La matriz es:");
         imprimeMatriz(A);
 
+        System.out.println("Calculando su determinante... ");
         HiloDeterminante Det = new HiloDeterminante(A,determinante);
         Det.start();
         try{
@@ -39,15 +43,43 @@ public class ExamenHilos {
         }
         determinante = (float)(Det.Det);
         
-        HiloTranspuesta transpuesta = new HiloTranspuesta(A,Atraspuesta);
-        transpuesta.start();
+        System.out.println("Calculando transpuesta...");
+
+        HiloGenTranspuesta Htr = new HiloGenTranspuesta(A,Tran);
+        Htr.start();
+        try{
+            Htr.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.println("Su traspuesta es:");
+        imprimeMatriz(Tran);
+
+        System.out.println("Calculando adjunta de la transpuesta...");
+
+        HiloGenAdjunta Had = new HiloGenAdjunta(Tran,Adj);
+        Had.start();
+        try{
+            Had.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.println("Su adjunta es:");
+        imprimeMatriz(Adj);
+        
+        System.out.println("Calculando el producto del determinante con la matriz...");
+        HiloProductoEscalar productoEscalar = new HiloProductoEscalar(A,determinante);
+        productoEscalar.start();
         try {
-            transpuesta.join();
+            productoEscalar.join();
         } catch (InterruptedException ex) {
             Logger.getLogger(ExamenHilos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        AproductoEscalar=productoEscalar.matriz;
+        System.out.println("La matriz por el producto escalar es:");
+
         
-        imprimeMatriz(Atraspuesta);
+        imprimeMatriz(AproductoEscalar);
     }
 
     private static void elsif(boolean b) {
