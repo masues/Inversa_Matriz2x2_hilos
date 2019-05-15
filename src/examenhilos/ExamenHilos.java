@@ -3,9 +3,11 @@ package examenhilos;
 public class ExamenHilos {
     public static void main(String[] args) {
         System.out.println("Creando matriz...");
-        int filas = 3;
-        int columnas = 3;
+        int filas = 2;
+        int columnas = 2;
         float [][]A = new float[filas][columnas];
+        float [][]Tran = new float[filas][columnas];
+        float [][]Adj = new float[filas][columnas];
         int determinante = 1;
         HiloGenerador []Filas = new HiloGenerador[filas]; //arreglo de hilos para cada fila
 
@@ -24,13 +26,35 @@ public class ExamenHilos {
 
         System.out.println("¡Matriz lista!");
 
-        HiloDeterminante Det = new HiloDeterminante(A,determinante);
+        //comentada para hacer las pruebas de la transpuesta
+        /*HiloDeterminante Det = new HiloDeterminante(A,determinante);
         Det.start();
         try{
             Det.join();
         }catch(InterruptedException e){
             e.printStackTrace();
+        }*/
+        
+        System.out.println("Calculando transpuesta...");
+        
+        HiloGenTranspuesta Htr = new HiloGenTranspuesta(A,Tran);
+        Htr.start();
+        try{
+            Htr.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
         }
+        
+        System.out.println("Calculando adjunta de la transpuesta...");
+        
+        HiloGenAdjunta Had = new HiloGenAdjunta(Tran,Adj);
+        Had.start();
+        try{
+            Had.join();
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        
         
     }
 
