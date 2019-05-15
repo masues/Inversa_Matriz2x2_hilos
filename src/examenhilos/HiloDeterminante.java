@@ -1,6 +1,12 @@
 package examenhilos;
 
 public class HiloDeterminante extends Thread{ //Hereda de Thread
+    
+    float [][]Mat;
+    float mult_1 = 1;
+    float mult_2 = 1;
+    float Det;
+    
     public HiloDeterminante(){ //Constructor vacío
 
         System.out.println(this.getName()+": Hilo generado");
@@ -12,38 +18,25 @@ public class HiloDeterminante extends Thread{ //Hereda de Thread
     @Override
     public void run(){ //siempre definir como void y no recibe parámetros
         
-        for(int j=0; j<this.Mat.length; j++){        //Recorrido de columnas
-            for(int i=j+1; i<Mat.length; i++){    //Recorrido de renglones
-                if(this.Mat[j][j] == 0){
-                    j = this.Mat.length;
-                    break;
-                }
-                //Calculo del factor para volver 0 un elemento
-                float factor = (this.Mat[i][j]/this.Mat[j][j])*-1;
-                System.out.println("Factor "+factor);
-                
-                for(int c = j; c<Mat.length; c++){    //Recorrido interno del renglon
-                    this.Mat[i][c] = (Mat[j][c]*factor) + this.Mat[i][c];
-                    System.out.println("A["+i+"]"+"["+c+"] = "+this.Mat[i][c]);
+        //Calculo de determinante para matriz 2x2
+        for(int i = 0; i<Mat.length; i++){
+            for(int j = 0; j<Mat.length; j++){
+                if (i == j){
+                    mult_1 = Mat[i][j]*mult_1;
+                }else{
+                    mult_2 = Mat[i][j]*mult_2;
                 }
             }
         }
-        
-        //Calculo del determinante
-        for(int i=0; i<Mat.length; i++){
-            this.Det = Det*Mat[i][i];
-        }
+        Det = mult_1 - mult_2;
 
         if(this.Det == 0){
-            System.out.println(this.getName()+": La matriz no tiene inversa.");
+            System.out.println(this.getName()+": La matriz no tiene inversa, su determinante es: "+this.Det);
             System.out.println(this.getName()+": Terminando ejecución");
             System.exit(0);
         }else{
             System.out.println(this.getName()+": El determinante de la matriz es: "+this.Det);
         }
     }
-    float [][]Mat;
-    float mult_1;
-    float mult_2;
-    float Det;
+    
 }

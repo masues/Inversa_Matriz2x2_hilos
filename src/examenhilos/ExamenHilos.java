@@ -23,13 +23,16 @@ public class ExamenHilos {
                 e.printStackTrace();
             }
         }
-
+        
+        imprimeMatriz(A);
+        
         System.out.println("¡Matriz lista!");
 
         //comentada para hacer las pruebas de la transpuesta
         /*HiloDeterminante Det = new HiloDeterminante(A,determinante);
         Det.start();
         try{
+            determinante = (int)(Det.Det);
             Det.join();
         }catch(InterruptedException e){
             e.printStackTrace();
@@ -44,6 +47,7 @@ public class ExamenHilos {
         }catch(InterruptedException e){
             e.printStackTrace();
         }
+        imprimeMatriz(A);
         
         System.out.println("Calculando adjunta de la transpuesta...");
         
@@ -60,5 +64,13 @@ public class ExamenHilos {
 
     private static void elsif(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public static void imprimeMatriz(float [][]A){
+        for(int i=0;i<A.length;i++){
+            for(int j=0; j<A[i].length;j++){
+                System.out.print(A[i][j]+"\t");
+            }
+            System.out.println("");
+        }
     }
 }
