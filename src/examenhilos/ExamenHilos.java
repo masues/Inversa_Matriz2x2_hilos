@@ -60,16 +60,16 @@ public class ExamenHilos {
         System.out.println("Su traspuesta es:");
         imprimeMatriz(Tran);
 
-        System.out.println("Calculando la adjunta...");
+        System.out.println("Calculando la adjunta de la transpuesta...");
 
-        HiloGenAdjunta Had = new HiloGenAdjunta(A,Adj);
+        HiloGenAdjunta Had = new HiloGenAdjunta(Tran,Adj);
         Had.start();
         try{
             Had.join();
         }catch(InterruptedException e){
             e.printStackTrace();
         }
-        System.out.println("Su adjunta es:");
+        System.out.println("La adjunta de la trasnpuesta es:");
         imprimeMatriz(Adj);
         
         System.out.println("Calculando el producto de 1/determinante con la matriz adjunta...");

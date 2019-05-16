@@ -22,19 +22,24 @@ public class HiloAdjunta extends Thread{ //Hereda de Thread
     }
     @Override
     public void run(){ //siempre definir como void y no recibe parámetros
-               if(col == fila && col== 0){
-                this.Adj[fila][col] = this.Mat[fila+1][col+1];
-               }else if(col == fila && col== 1){
-                this.Adj[fila][col] = this.Mat[fila-1][col-1];
-                }else{
-                   if(this.Mat[fila][col]==0){
-                    this.Adj[fila][col] = this.Mat[fila][col];
-                   }else{
-                    this.Adj[fila][col] = this.Mat[fila][col]*-1;
-                   }
-                   
-               }
-               System.out.println(this.getName()+": "+ "A["+fila+"]"+"["+col+"] = "+Adj[fila][col]);
+        if(col == fila && col== 0){
+            this.Adj[fila][col] = this.Mat[fila+1][col+1];
+        }else if(col == fila && col== 1){
+            this.Adj[fila][col] = this.Mat[fila-1][col-1];
+        }else if(col != fila && col==0){
+            if(this.Mat[fila][col]==0){
+                this.Adj[fila][col] = this.Mat[fila-1][col+1];
+            }else{
+                this.Adj[fila][col] = this.Mat[fila-1][col+1]*-1;
+            }    
+        }else if(col != fila && col==1){
+            if(this.Mat[fila][col]==0){
+                this.Adj[fila][col] = this.Mat[fila+1][col-1];
+            }else{
+                this.Adj[fila][col] = this.Mat[fila+1][col-1]*-1;
+            }    
+        }
+        System.out.println(this.getName()+": "+ "A["+fila+"]"+"["+col+"] = "+Adj[fila][col]);
     }
     float [][]Mat;
     float [][]Adj;

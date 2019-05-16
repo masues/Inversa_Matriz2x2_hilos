@@ -23,7 +23,7 @@ public class HiloProductoColumna extends Thread{
     public void run(){
         for(int i=0;i<matriz.length;i++){
             matriz[columna][i]=matriz[columna][i]*escalar;
-            System.out.println(getName()+"["+i+"]"+"["+columna+"] = "+matriz[i][columna]);
+            System.out.println(getName()+": A["+i+"]"+"["+columna+"] = "+matriz[i][columna]);
         }
     }
 }

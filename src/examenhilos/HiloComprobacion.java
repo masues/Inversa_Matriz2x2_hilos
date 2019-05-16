@@ -26,9 +26,9 @@ public class HiloComprobacion extends Thread{
     public void run(){
         
         for(int i=0; i<M.length; i++){
-            a = a + (M[r][i]*Minv[i][c]);
+            a = a + (float)Math.round((M[r][i]*Minv[i][c])*10000)/10000;
         }
-        System.out.println(getName()+"A["+r+"]["+c+"] = "+a);
+        System.out.println(getName()+": A["+r+"]["+c+"] = "+a);
     }
     
 }
