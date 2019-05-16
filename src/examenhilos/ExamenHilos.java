@@ -85,24 +85,21 @@ public class ExamenHilos {
         imprimeMatriz(Ainversa);
         
         System.out.println("Generando hilos para la comprobacion");
-        ArrayList<HiloComprobacion> producto = new ArrayList<HiloComprobacion>();
+        HiloComprobacion producto[][] = new HiloComprobacion[filas][columnas];
         
         for(int i=0; i<Acomprobacion.length; i++){
             for(int j=0; j<Acomprobacion.length; j++){
-                producto.add(new HiloComprobacion(A, Ainversa, i, j));
+                producto[i][j]=new HiloComprobacion(A, Ainversa, i, j);
+                producto[i][j].start();
+                try {
+                    producto[i][j].join();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ExamenHilos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Acomprobacion[i][j] = producto[i][j].a;
             }
         }
-        producto.forEach((n) ->
-            {
-                n.start();
-            try {
-                n.join();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ExamenHilos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-                Acomprobacion[n.r][n.c] = n.a;
-            }
-        );
+
         System.out.println("Se obtuvo la matriz identidad");
         imprimeMatriz(Acomprobacion);
     }
